@@ -7,6 +7,7 @@ print_string
 * this test is for 'int lists only
 * enter a function to test, then you can enter arguments to evaluate on
 * enter 'change' to choose another function
+* function names: merge_sort, rev
 * enter 'exit' to exit\n"
 ;;
 
