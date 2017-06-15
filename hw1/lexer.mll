@@ -4,7 +4,7 @@
 
 rule token = parse
 	| "\\\\" 				{ LAMBDA }
-	| ['a'-'z']+ as name 	{ VAR name }
+	| ['a'-'z']+ as name	{ VAR name }
 	| '(' 					{ OPAREN }
 	| ')' 					{ CPAREN }
 	| '.' 					{ DOT }
