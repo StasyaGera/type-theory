@@ -13,12 +13,15 @@
 %%
 
 main:
-	| parse EOF { $1 }
+	|    parse    EOF	{ $1 }
+	| WS parse    EOF	{ $2 }
+	|    parse WS EOF	{ $1 }
+	| WS parse WS EOF	{ $2 }
 ;
 
 parse:
-	| VAR 					{ Var $1 }
 	| OPAREN parse CPAREN 	{ $2 }
-	| parse WS parse 		{ App ($1, $3) }
-	| LAMBDA VAR DOT parse 	{ Abs ($2, $4) }
+	| VAR					{ Ltype.Var $1 }
+	| parse WS parse	  	{ Ltype.App ($1, $3) }
+	| LAMBDA VAR DOT parse  { Ltype.Abs ($2, $4) }
 ;
