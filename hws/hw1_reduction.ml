@@ -68,7 +68,7 @@ let rec is_alpha_equivalent l1 l2 =
 
 let rec real_rename expr vars = 
 	match expr with
-	| Var x -> if String_Map.mem x vars then String_Map.find x vars else Var x
+	| Var x -> (try String_Map.find x vars with _ -> Var x)
 	| Abs (x, p) -> let name = new_name() in Abs (name, real_rename p (String_Map.add x (Var name) vars))
 	| App (p, q) -> App (real_rename p vars, real_rename q vars)
 ;;
@@ -102,7 +102,7 @@ let rec to_ref expr =
 
 let rec copy_renaming expr vars = 
 	match !expr with
-	| Var_ref x -> if String_Map.mem x vars then ref (String_Map.find x vars) else ref (Var_ref x)
+	| Var_ref x -> (try ref (String_Map.find x vars) with _ -> ref (Var_ref x))
 	| Abs_ref (x, p) -> 
 		let name = new_name() in ref (Abs_ref (name, copy_renaming p (String_Map.add x (Var_ref name) vars)))
 	| App_ref (p, q) -> ref (App_ref (copy_renaming p vars, copy_renaming q vars))

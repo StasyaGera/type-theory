@@ -13,10 +13,7 @@
 %%
 
 main:
-	|    parse    EOF	{ $1 }
-	| WS parse    EOF	{ $2 }
-	|    parse WS EOF	{ $1 }
-	| WS parse WS EOF	{ $2 }
+	| parse EOF	{ $1 }
 ;
 
 parse:
