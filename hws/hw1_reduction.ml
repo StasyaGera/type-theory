@@ -68,7 +68,7 @@ let rec is_alpha_equivalent l1 l2 =
 
 let rec real_rename expr vars = 
 	match expr with
-	| Var x -> (try String_Map.find x vars with _ -> Var x)
+	| Var x -> (try String_Map.find x vars with Not_found -> expr)
 	| Abs (x, p) -> let name = new_name() in Abs (name, real_rename p (String_Map.add x (Var name) vars))
 	| App (p, q) -> App (real_rename p vars, real_rename q vars)
 ;;
